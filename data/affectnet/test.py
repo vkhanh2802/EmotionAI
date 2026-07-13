@@ -1,4 +1,4 @@
-from dataloader import build_dataloader
+from data.affectnet.dataloader import build_dataloader
 
 train_loader, test_loader, classes = build_dataloader(
     "train",

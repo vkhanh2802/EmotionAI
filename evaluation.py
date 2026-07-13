@@ -5,7 +5,7 @@ import torch
 import numpy as np
 from sklearn.metrics import classification_report, confusion_matrix
 
-from datasets.affectnet.dataloader import build_dataloader
+from data.affectnet.dataloader import build_dataloader
 from models import FacialAffectModel
 
 def load_config(config_path):
@@ -14,11 +14,11 @@ def load_config(config_path):
 
 def main():
     parser = argparse.ArgumentParser(description="Đánh giá Chuyên sâu Mô hình")
-    parser.add_argument('--config', type=str, default='config/default.yaml')
-    parser.add_argument('--weights', type=str, default='outputs/checkpoints/best_model.pth', help='Đường dẫn file .pth tốt nhất')
+    parser.add_argument('--configs', type=str, default='configs/default.yaml')
+    parser.add_argument('--weights', type=str, default='outputs/checkpoints/best_model1.pth', help='Đường dẫn file .pth tốt nhất')
     args = parser.parse_args()
 
-    cfg = load_config(args.config)
+    cfg = load_config(args.configs)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"[*] Thiết bị sử dụng đánh giá: {device}")
 
@@ -78,9 +78,9 @@ def main():
     # Lưu kết quả ra file txt trong thư mục logs để sau này đưa vào tài liệu GitHub
     eval_log_path = os.path.join(cfg.get('output_dir', 'outputs'), 'logs', 'evaluation_report.txt')
     with open(eval_log_path, 'w', encoding='utf-8') as f:
-        f.write("=== BAO CAO DANH GIA MO HINH CAO CAP ===\n\n")
+        f.write("=== BAO CAO DANH GIA MO HINH ===\n\n")
         f.write(report)
-        f.write("\n\n=== MA TRAN NHAM LAN (CONFUSION MATRIX) ===\n")
+        f.write("\n\n=== CONFUSION MATRIX ===\n")
         f.write(str(matrix))
         
     print(f"\n[+] Báo cáo chi tiết đã được xuất ra file thành công tại: {eval_log_path}")

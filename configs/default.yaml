@@ -1,6 +1,6 @@
 dataset:
-  train_dir: "datasets/affectnet/train"
-  test_dir: "datasets/affectnet/test"
+  train_dir: "data/affectnet/train"
+  test_dir: "data/affectnet/test"
   image_size: 224
   batch_size: 32
   num_workers: 4

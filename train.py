@@ -3,17 +3,23 @@ import yaml
 import torch
 from collections import Counter
 
-from datasets.affectnet.dataloader import build_dataloader
-from models import FacialAffectModel
+from data.affectnet.dataloader import build_dataloader
+from models.emotion_model import FacialAffectModel
 from losses.FocalLoss import WeightedFocalLoss
 from utils.optimizer import build_optimizer
 from utils.scheduler import build_scheduler
 from engines.trainer import fit
 
-def load_config(config_path):
-    with open(config_path, 'r', encoding='utf-8') as f:
-        return yaml.safe_load(f)
+from pathlib import Path 
+PROJECT_ROOT = Path(__file__).resolve().parent
 
+def load_config(config_path):
+    config_path = PROJECT_ROOT / config_path
+
+    with open(config_path, 'r', encoding='utf-8') as f:
+        cfg = yaml.safe_load(f)
+
+    return cfg
 
 def get_class_weights(dataset, class_names):
     targets = getattr(dataset, 'targets', None)

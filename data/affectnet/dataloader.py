@@ -1,8 +1,8 @@
 from torch.utils.data import DataLoader
 
-from imagefolder import AffectNetDataset
+from data.affectnet.imagefolder import AffectNetDataset
 
-from transforms import (
+from data.affectnet.transforms import (
     train_transform,
     test_transform
 )
@@ -30,7 +30,8 @@ def build_dataloader(
         batch_size=batch_size,
         shuffle=True,
         num_workers=num_workers,
-        pin_memory=True
+        pin_memory=True,
+        drop_last=True
     )
 
     test_loader = DataLoader(

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
-from backbone import ResNet50Backbone
-from classifier import EmotionHead
+from models.backbone import ResNet50Backbone
+from models.classifier import EmotionHead
 
 class FacialAffectModel(nn.Module):
     def __init__(self, num_classes=7):
